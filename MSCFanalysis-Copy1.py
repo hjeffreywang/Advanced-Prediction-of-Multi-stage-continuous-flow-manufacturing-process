@@ -44,7 +44,7 @@ df1.shape
 
 #filter the y variables (Output measurement actuals) for prediction
 
-df2=df1.filter(regex='Stage1', axis=1).filter(regex='Actual', axis=1)
+df2=df1.filter(regex='Stage1', axis=1)
 df2
 
 
@@ -66,111 +66,7 @@ y = df2
 
 # In[8]:
 
+df3=df2.iloc[:,1:2]
 
-x
-
-
-# In[9]:
-
-
-y.iloc[:,14]
-
-
-# In[10]:
-
-
-# splitting them into train test and split each 15 
-
-from sklearn.model_selection import train_test_split
-
-
-    
-x_train, x_test, y_train, y_test = train_test_split(x, y.iloc[:,1], test_size = 0.2, random_state = 0)
-
-# gettiing the shapes
-print("shape of x_train: ", x_train.shape)
-print("shape of x_test: ", x_test.shape)
-print("shape of y_train: ", y_train.shape)
-print("shape of y_test: ", y_test.shape)
-
-
-# In[11]:
-
-
-x_train.head
-
-
-# In[12]:
-
-
-y_train
-
-
-# In[13]:
-
-
-# standardization of 15 variables
-
-from sklearn.preprocessing import StandardScaler
-
-# creating a standard scaler
-sc = StandardScaler()
-
-# fitting independent data to the model
-x_train = sc.fit_transform(x_train)
-x_test = sc.transform(x_test)
-
-
-# In[27]:
-
-
-y_train.shape
-
-
-import xgboost as xgb
-from xgboost.sklearn import XGBClassifier
-
-model = XGBClassifier()
-
-model.fit(x_train[0:7000], y_train.iloc[0:7000])
-
-y_pred = model.predict(x_test)
-y_pred.shape
-
-
-
-x_train[0:1000]
-
-
-y_train[0:1000]
-
-
-
-from sklearn.metrics import accuracy_score
-y_pred = model.predict(x_test)
-
-
-
-
-
-# In[ ]:
-
-
-from sklearn.metrics import mean_squared_error
-
-score = mean_squared_error(y_test, y_pred)
-np.sqrt(score)
-
-
-# In[ ]:
-
-
-from sklearn.metrics import r2_score
-r2_score(y_test, y_pred)
-
-
-# In[ ]:
-
-
-
+df3
 
